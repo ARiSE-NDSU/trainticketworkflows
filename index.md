@@ -1,37 +1,58 @@
-## Welcome to GitHub Pages
+## TrainTicketWorkflows
 
-You can use the [editor on GitHub](https://github.com/ARiSE-NDSU/trainticketworkflows/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+This page shares resources from our work in the ICSE 2022 NIER Track, titled, 'A Case for Microservice Orchestration Using Workflow Engines'. The preprint of the artifact can be acessed through arxiv, using this link: https://arxiv.org/abs/2204.07210
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+This work was enabled due to the work by FudanSE lab in their research:-
 
-### Markdown
+X. Zhou et al., "Fault Analysis and Debugging of Microservice Systems: Industrial Survey, Benchmark System, and Empirical Study," in IEEE Transactions on Software Engineering, vol. 47, no. 2, pp. 243-260, 1 Feb. 2021, doi: 10.1109/TSE.2018.2887384.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Microservices
 
-```markdown
-Syntax highlighted code block
+Microservices are independant, losely coupled services that allow practitioners to divide their applications into independant units.
 
-# Header 1
-## Header 2
-### Header 3
+This independant microservices, can then:-
+- Be developed by different teams
+- Be deployed onto lightweight containers
+- Scaled up and down as per requirement
 
-- Bulleted
-- List
+However, despite of these benifits, adopting microservices have certain associated challenges.
+- Microservices need to communicate over the network, through APIs, which is unreliable could become unresponsive at any given time.
+- As the size of the microservice-architecture based application grows, these microservices become harder to manage.
+- The size of application also makes the microservices harder to debug.
 
-1. Numbered
-2. List
+Therefore, it is important to make critical decisions, in a timely manner.
 
-**Bold** and _Italic_ and `Code` text
+A contentious decision is to decide whether to compose microservices using Orchestration or Choreography.
 
-[Link](url) and ![Image](src)
-```
+- Microservice Orchestration works with an 'orchestrator' that cordinates all the interactions of the business process, in a flow.
+- Choreography is more losely coupled, every microservice may generate events which direct another microservice to perform its job.
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+While choreography sounds more appealing,
+- It makes debugging relatively hard, as control is embedded in process flows.
+- Teams (ref: https://netflix.github.io/conductor/) argue, that there is no way to answer how much we are done with a process
 
-### Jekyll Themes
+In our work:-
+- We map a bench mark system implemented using choreography, to a system that is orchestrated.
+- We study the time taken by a user, to debug this orchestrated system
+- We compare the time taken in the original bench mark system case study
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ARiSE-NDSU/trainticketworkflows/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+The findings of our study did leave considerable proof that orchestration does have an impact on debugging time. Additionally, we find that utilization of frameworks can speed up the processes even more by reliving the developer of low-level distributed tasks.
 
-### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+## Environmental Set up
+
+### Pre-reqs
+- Docker
+- Temporal server (https://github.com/temporalio/temporal)
+- The Temporal-orchestrated version of TrainTicket system (https://github.com/ansnadeem/temporalmicroservice)
+
+
+### Steps to Set up
+1) Ensure that the Temporal server is up and running (see temporal docs for reference)
+2) Navigate to the system with the respective fault number from the package
+3) Use 'docker-compose up' from command line to load the system
+
+### Steps to replicate faults
+After loading the environment with the respective fault, follow the steps from the original bench mark system, in order to replicate the fault.
+Follow the repository below for a details of the fault:-
+https://github.com/FudanSELab/train-ticket/wiki/Fault-Description
