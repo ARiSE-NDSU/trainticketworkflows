@@ -44,7 +44,7 @@ The findings of our study did leave considerable proof that orchestration does h
 ### Pre-reqs
 - Docker
 - Temporal server (https://github.com/temporalio/temporal)
-- The Temporal-orchestrated version of TrainTicket system (https://github.com/ansnadeem/temporalmicroservice)
+- The Temporal-orchestrated version of TrainTicket system (https://github.com/ansnadeem/temporalmicroservice)  (5/8/2022: Work in progress due to reported set up issues)
 
 
 ### Steps to Set up
